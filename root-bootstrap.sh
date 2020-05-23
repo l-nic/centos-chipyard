@@ -25,23 +25,30 @@ yum -y install libXScrnSaver
 yum -y install compat-libtiff3
 yum -y install libmng-1.0.10-14.el7.x86_64
 yum -y install libpng12-1.2.50-10.el7.x86_64
+# Install some extra utils for using Synopsys VCS
+yum -y install bc
+yum -y install time
+# Additional tools
+yum -y install net-tools
 
 # Upgrade to a modern git and make
 sudo yum -y update
 sudo yum -y remove git*
-sudo yum -y install  https://centos7.iuscommunity.org/ius-release.rpm
-sudo yum -y install  git2u-all
+sudo yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
+sudo yum -y install git
 echo 'source /opt/rh/devtoolset-8/enable' >> /home/vagrant/.bashrc
 source /opt/rh/devtoolset-8/enable
 
 # Fix python 2 and install testbench dependencies
+sudo yum -y install epel-release
 sudo yum -y install python26 python-pip
 sudo pip install --upgrade pip
 sudo pip install scapy pandas
 
 # Simulator Network Interface Configuration
 sudo touch /usr/local/bin/start-tap-devices.sh
-sudo chown $USER /usr/local/bin/start-tap-devices.sh
+sudo chown vagrant /usr/local/bin/start-tap-devices.sh
+sudo chmod +x /usr/local/bin/start-tap-devices.sh
 echo "sudo ip tuntap add mode tap dev tap0 user vagrant" >> /usr/local/bin/start-tap-devices.sh
 echo "sudo ip link set tap0 up" >> /usr/local/bin/start-tap-devices.sh
 echo "sudo ip addr add 192.168.1.1/24 dev tap0" >> /usr/local/bin/start-tap-devices.sh
