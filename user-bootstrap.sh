@@ -1,19 +1,14 @@
-#!/usr/bin/env bash
+# L-NIC Chipyard CentOS configuration
 
 # Clone and initialize the lnic chipyard repo
-git clone --branch lnic/sigcomm-20-submission https://github.com/l-nic/chipyard.git
+cd /home/vagrant
+git clone https://github.com/l-nic/chipyard.git
 cd chipyard
+git checkout lnic-dev
 ./scripts/init-submodules-no-riscv-tools.sh
-export MAKEFLAGS=-j$(nproc)
+export MAKEFLAGS=-j8
 ./scripts/build-toolchains.sh
+
+# Configure toolchain paths
 echo 'source /home/vagrant/chipyard/env.sh' >> /home/vagrant/.bashrc
-
-# Build the simulator and tests
-source /home/vagrant/chipyard/env.sh
-cd sims/verilator
-make debug CONFIG=SimNetworkLNICGPRConfig TOP=TopWithLNIC -j16
-cd /home/vagrant/chipyard/tests
-make -j16
-
-# Final reboot
-sudo reboot
+echo 'export SNPSLMD_LICENSE_FILE=27000@cadlic0.stanford.edu' >> /home/vagrant/.bashrc

@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_x11 = true
   config.disksize.size = "256GB"
   config.vm.provider "virtualbox" do |v|
-    v.memory = 12288
-    v.cpus = 4
+    v.memory = 16384
+    v.cpus = 16
   end
 end
