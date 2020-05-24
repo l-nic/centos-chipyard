@@ -1,5 +1,10 @@
 # L-NIC Chipyard CentOS configuration
 
+# Expand the file system to use the full disk size
+yum install -y cloud-utils-growpart
+growpart /dev/sda 1
+xfs_growfs /
+
 # Initial dependency configuration (from chipyard page)
 sudo yum groupinstall -y "Development tools"
 sudo yum install -y gmp-devel mpfr-devel libmpc-devel zlib-devel vim git java java-devel
