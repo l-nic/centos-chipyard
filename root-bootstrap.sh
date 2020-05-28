@@ -25,16 +25,19 @@ sudo yum install -y dtc
 # Install NFS client dependencies
 yum -y install nfs-utils nfs-utils-lib
 yum -y install tcl
+# Install some extra utils for using Synopsys VCS
+yum -y install libpng12-devel libXScrnSaver
+yum -y install bc
+yum -y install time
 # Deps for Synopsys DC
-yum -y install libXScrnSaver
 yum -y install compat-libtiff3
 yum -y install libmng-1.0.10-14.el7.x86_64
 yum -y install libpng12-1.2.50-10.el7.x86_64
-# Install some extra utils for using Synopsys VCS
-yum -y install bc
-yum -y install time
+# X11 tools
+yum install -y xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-apps
 # Additional tools
 yum -y install net-tools
+yum -y install gtkwave
 
 # Upgrade to a modern git and make
 sudo yum -y update
