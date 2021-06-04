@@ -47,11 +47,22 @@ sudo yum -y install git
 echo 'source /opt/rh/devtoolset-8/enable' >> /home/vagrant/.bashrc
 source /opt/rh/devtoolset-8/enable
 
+# Install pcap support
+sudo yum -y install libpcap-devel
+
+# Verilator install
+cd /home/vagrant
+git clone https://github.com/verilator/verilator
+cd verilator
+git checkout stable
+autoconf
+./configure
+make -j8
+sudo make install
+
 # Fix python 2 and install testbench dependencies
 sudo yum -y install epel-release
-sudo yum -y install python26 python-pip
-sudo pip install --upgrade pip
-sudo pip install scapy pandas
+sudo yum -y install python26
 
 # Simulator Network Interface Configuration
 sudo touch /usr/local/bin/start-tap-devices.sh
